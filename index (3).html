@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearNook: Storage Cleaner - Keep Your Phone Lightning Fast</title>
+    <meta name="description"
+        content="ClearNook: Storage Cleaner helps you scan and clean screenshots, videos, manage notifications, uninstall unused apps, and boost memory for a seamlessly smooth mobile experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --secondary: #0089FF;
+            --bg-dark: #090e17;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(74, 144, 226, 0.15), transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(0, 137, 255, 0.1), transparent 40%);
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 900px;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3.5rem;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 137, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-primary:hover::before {
+            left: 100%;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 137, 255, 0.5);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: default;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(74, 144, 226, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .icon-wrapper {
+            width: 65px;
+            height: 65px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(0, 137, 255, 0.05));
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+            font-size: 1.8rem;
+            transition: transform 0.3s;
+        }
+
+        .card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* Abstract bg shapes */
+        .blur-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(74, 144, 226, 0.15);
+            top: -10%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 137, 255, 0.12);
+            bottom: 20%;
+            right: 0%;
+            animation-delay: -5s;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                transform: translateY(50px) scale(1.05);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .cta-primary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blur-orb orb-1"></div>
+    <div class="blur-orb orb-2"></div>
+
+    <header>
+        <div class="logo">ClearNook</div>
+        <a href="#features" class="nav-btn">Explore</a>
+    </header>
+
+    <section class="hero">
+        <h1>Revitalize Your Android Device</h1>
+        <p>ClearNook: Storage Cleaner helps you reclaim storage, banish annoying notifications, and boost memory for a perfectly smooth
+            experience.</p>
+        <div class="cta-group">
+            <a href="https://play.google.com/store/apps/details?id=com.clear.nook" target="_blank" rel="noopener noreferrer" class="cta-primary">Download Free</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Everything You Need</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon-wrapper">🖼️</div>
+                <h3>Media Cleaner</h3>
+                <p>Intelligently scan and clean up unneeded screenshots and large video files taking up
+                    your phone's storage.</p>
+            </div>
+            <div class="card">
+                <div class="icon-wrapper">🚀</div>
+                <h3>Memory Booster</h3>
+                <p>Clean memory to make your phone run smoother. Kill background processes instantly and check real-time
+                    RAM status.</p>
+            </div>
+            <div class="card">
+                <div class="icon-wrapper">📦</div>
+                <h3>App Manager</h3>
+                <p>Easily identify and uninstall unused or large applications. Free up massive amounts of space with a
+                    single tap.</p>
+            </div>
+            <div class="card">
+                <div class="icon-wrapper">🔔</div>
+                <h3>Notification Manager</h3>
+                <p>Take back control of your status bar. Stop disturbances and organize annoying notifications
+                    seamlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ClearNook: Storage Cleaner. Keep Your Phone Lightning Fast.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
